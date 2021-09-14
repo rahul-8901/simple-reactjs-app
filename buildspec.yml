@@ -1,0 +1,19 @@
+version: 0.2
+
+phases: 
+    install:
+        runtime-versions:
+            nodejs: latest
+        commands:
+            - echo "installing"
+    pre_build:
+        commands: 
+            - npm install
+    build:
+        commands:
+            - echo Build started on `date`
+            - npm run build
+    post_build:
+        commands:
+            - aws s3 cp --recursive --acl public-read ./build s3://react-test-app-br
+            
